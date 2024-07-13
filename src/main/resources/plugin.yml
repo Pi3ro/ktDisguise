@@ -1,0 +1,4 @@
+main: me.pi3ro.disguise.DisguisePlugin
+name: ktDisguise
+author: Pi3ro
+version: 1.0-SNAPSHOT
