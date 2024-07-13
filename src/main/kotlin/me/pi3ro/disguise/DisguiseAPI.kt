@@ -51,6 +51,16 @@ object DisguiseAPI
         return provider.isDisguised(player)
     }
 
+    fun getRealName(player: Player): String
+    {
+        return provider.getInfo(player).name
+    }
+
+    fun getDisguisedName(player: Player): String
+    {
+        return provider.getInfo(player).nickname
+    }
+
     fun isValid(name: String): Boolean
     {
         val chars

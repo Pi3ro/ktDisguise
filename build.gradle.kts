@@ -35,6 +35,6 @@ kotlin {
 
 tasks {
     shadowJar {
-        relocate("dev.iiahmed.disguise", "me.pi3ro.disguise.api")
+        relocate("dev.iiahmed.disguise", "me.pi3ro.disguise.api.disguise")
     }
 }
