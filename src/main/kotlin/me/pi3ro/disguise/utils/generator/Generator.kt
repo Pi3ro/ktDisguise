@@ -5,7 +5,7 @@ import kotlin.random.Random
 object Generator
 {
     private val random = Random.Default
-    private val names = listOf(
+    val names = listOf(
         "sewerratss", "Luukiee", "isuccdeekforlife", "Juliantjecool", "Chealex",
         "Alekser", "Kopiko_", "xXLupusXx", "Mxony142", "FryPanMan", "Bot539",
         "AntiChestnuts", "Swede_Tomate", "nxcky_ab", "BeetleElf898786", "Ghost_shadow04",

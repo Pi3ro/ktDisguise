@@ -81,9 +81,26 @@ class PickSkinMenu(private val player: Player) :
     {
         val buttons = mutableMapOf<Int, Button>()
 
+        val skins = Generator.names
+
+        for (i in skins.indices)
+        {
+            buttons[i] = SkullButtonOnlyName(
+                skins[i],
+                "&9${skins[i]}",
+                mutableListOf(),
+            ).setBody { player, i, clickType ->
+                DisguiseAPI.apply(
+                    player,
+                    names[player.uniqueId] ?: Generator.apply(),
+                    skins[i]
+                )
+            }
+        }
 
         return buttons
     }
+
 
     override fun getTitle(player: Player): String
     {
