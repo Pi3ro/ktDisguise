@@ -1,6 +1,5 @@
 package me.pi3ro.disguise.menus.pick
 
-import me.pi3ro.disguise.DisguiseAPI
 import me.pi3ro.disguise.DisguiseAPI.ranks
 import me.pi3ro.disguise.utils.CC.translate
 import me.pi3ro.disguise.utils.ItemBuilder

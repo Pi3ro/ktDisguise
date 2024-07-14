@@ -39,9 +39,6 @@ object DisguiseAPI
             DisguiseResponse.SUCCESS -> {
                 player.sendMessage(translate("&aSuccess! You now look like &6$name!"))
                 player.sendMessage(translate("&c$name is an existing Minecraft player, so if they log in for the first time as you're disguised, you will be kicked."))
-
-                ranks.remove(player.uniqueId)
-                names.remove(player.uniqueId)
             }
             DisguiseResponse.FAIL_NAME_ALREADY_ONLINE -> player.sendMessage(translate("&cThere's already an online player with that name."))
             else -> player.sendMessage(translate("&cDisguise is unsuccessful with the reason: ${response.name}"))
@@ -51,6 +48,8 @@ object DisguiseAPI
     fun undo(player: Player)
     {
         provider.undisguise(player)
+        ranks.remove(player.uniqueId)
+        names.remove(player.uniqueId)
         player.sendMessage(translate("&aSuccessfully undisguised."))
     }
 
