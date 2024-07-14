@@ -16,6 +16,7 @@ object DisguiseAPI
 
     val names: MutableMap<UUID, String> = HashMap()
     val ranks: MutableMap<UUID, String> = HashMap()
+    var picking: MutableMap<UUID, Boolean> = HashMap()
 
     fun apply(player: Player, name: String, skin: String)
     {

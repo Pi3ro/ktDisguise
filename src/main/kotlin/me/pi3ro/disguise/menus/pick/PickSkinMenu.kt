@@ -2,13 +2,16 @@ package me.pi3ro.disguise.menus.pick
 
 import me.pi3ro.disguise.DisguiseAPI
 import me.pi3ro.disguise.DisguiseAPI.names
+import me.pi3ro.disguise.DisguiseAPI.picking
 import me.pi3ro.disguise.utils.CC.translate
 import me.pi3ro.disguise.utils.SkullTexture
 import me.pi3ro.disguise.utils.generator.Generator
 import me.pi3ro.disguise.utils.menu.Button
+import me.pi3ro.disguise.utils.menu.buttons.SimpleActionButton
 import me.pi3ro.disguise.utils.menu.buttons.SkullButton
 import me.pi3ro.disguise.utils.menu.buttons.SkullButtonOnlyName
 import me.pi3ro.disguise.utils.menu.pagination.PaginatedMenu
+import org.bukkit.Material
 import org.bukkit.entity.Player
 
 class PickSkinMenu(private val player: Player) :
@@ -39,6 +42,19 @@ class PickSkinMenu(private val player: Player) :
                 names[player.uniqueId] ?: Generator.apply(),
                 Generator.apply()
             )
+        }
+        buttons[3] = SimpleActionButton(
+            Material.SIGN,
+            mutableListOf(),
+            "&9Pick a name",
+            0
+        ).setBody { player, i, clickType ->
+            picking[player.uniqueId] = true
+
+            player.sendMessage(translate(
+                "&a&lPick a skin... Enter the skin name..."))
+
+            player.closeInventory()
         }
         buttons[5] = SkullButtonOnlyName(
             names[player.uniqueId]!!,

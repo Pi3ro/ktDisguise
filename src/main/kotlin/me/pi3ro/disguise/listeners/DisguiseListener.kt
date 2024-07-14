@@ -3,8 +3,10 @@ package me.pi3ro.disguise.listeners
 import me.pi3ro.disguise.DisguiseAPI
 import me.pi3ro.disguise.DisguiseAPI.ranks
 import me.pi3ro.disguise.DisguiseAPI.names
+import me.pi3ro.disguise.DisguiseAPI.picking
 import me.pi3ro.disguise.DisguisePlugin
 import me.pi3ro.disguise.utils.CC.translate
+import me.pi3ro.disguise.utils.generator.Generator
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
@@ -49,10 +51,37 @@ class DisguiseListener(private val plugin: DisguisePlugin) : Listener
     }
 
     @EventHandler
+    fun onPickNameEvent(event: AsyncPlayerChatEvent)
+    {
+        val player = event.player
+
+        if (picking[player.uniqueId] == true)
+        {
+            val entry = event.message
+            event.isCancelled = true
+
+            if (!DisguiseAPI.isValid(entry))
+            {
+                player.sendMessage(translate("&cDisguise name is invalid."))
+                return
+            }
+
+            DisguiseAPI.apply(
+                player,
+                names[player.uniqueId] ?: Generator.apply(),
+                entry
+            )
+
+            picking[player.uniqueId] = false
+        }
+    }
+
+    @EventHandler
     fun onQuitEvent(event: PlayerQuitEvent)
     {
         val player = event.player
 
+        picking.remove(player.uniqueId)
         ranks.remove(player.uniqueId)
         names.remove(player.uniqueId)
     }
