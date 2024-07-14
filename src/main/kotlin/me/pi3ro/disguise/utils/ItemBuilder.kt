@@ -86,6 +86,13 @@ class ItemBuilder(private val item: ItemStack)
         return this
     }
 
+    fun setLeatherArmorColor(color: Color): ItemBuilder {
+        val leatherArmorMeta = item.itemMeta as LeatherArmorMeta
+        leatherArmorMeta.color = color
+        item.itemMeta = leatherArmorMeta
+        return this
+    }
+
     fun color(color: Color): ItemBuilder
     {
         val meta = item.itemMeta as? LeatherArmorMeta

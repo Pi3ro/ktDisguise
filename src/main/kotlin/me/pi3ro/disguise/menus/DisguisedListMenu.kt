@@ -29,7 +29,7 @@ class DisguisedListMenu(private val player: Player) :
             .toMutableMap()
     }
 
-    class DisguisedButton(val player: Player) : Button()
+    private class DisguisedButton(val player: Player) : Button()
     {
         override fun getMaterial(player: Player): Material
         {

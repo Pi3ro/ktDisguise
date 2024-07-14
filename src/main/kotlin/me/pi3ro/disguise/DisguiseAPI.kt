@@ -6,11 +6,16 @@ import dev.iiahmed.disguise.DisguiseResponse
 import me.pi3ro.disguise.utils.CC.translate
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
+import java.util.UUID
+import kotlin.collections.HashMap
 
 object DisguiseAPI
 {
     private val provider: DisguiseProvider
         get() = DisguisePlugin.INSTANCE.provider
+
+    val names: MutableMap<UUID, String> = HashMap()
+    val ranks: MutableMap<UUID, String> = HashMap()
 
     fun apply(player: Player, name: String, skin: String)
     {
@@ -34,6 +39,9 @@ object DisguiseAPI
             DisguiseResponse.SUCCESS -> {
                 player.sendMessage(translate("&aSuccess! You now look like &6$name!"))
                 player.sendMessage(translate("&c$name is an existing Minecraft player, so if they log in for the first time as you're disguised, you will be kicked."))
+
+                ranks.remove(player.uniqueId)
+                names.remove(player.uniqueId)
             }
             DisguiseResponse.FAIL_NAME_ALREADY_ONLINE -> player.sendMessage(translate("&cThere's already an online player with that name."))
             else -> player.sendMessage(translate("&cDisguise is unsuccessful with the reason: ${response.name}"))

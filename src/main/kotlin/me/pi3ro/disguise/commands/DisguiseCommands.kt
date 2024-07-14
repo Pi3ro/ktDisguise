@@ -1,7 +1,9 @@
 package me.pi3ro.disguise.commands
 
 import me.pi3ro.disguise.DisguiseAPI
+import me.pi3ro.disguise.DisguiseAPI.names
 import me.pi3ro.disguise.menus.DisguisedListMenu
+import me.pi3ro.disguise.menus.pick.PickRankMenu
 import me.pi3ro.disguise.utils.CC.translate
 import me.pi3ro.disguise.utils.generator.Generator
 import org.bukkit.entity.Player
@@ -16,7 +18,7 @@ class DisguiseCommands
     @Command("disguise", "d")
     @Cooldown(value = 3, unit = TimeUnit.MINUTES)
     @CommandPermission("disguise.command.disguise")
-    fun onApply(player: Player, @Optional name: String?, @Optional skin: String?)
+    fun onApply(player: Player, @Optional name: String?)
     {
         if (DisguiseAPI.isDisguised(player))
         {
@@ -30,11 +32,9 @@ class DisguiseCommands
             return
         }
 
-        DisguiseAPI.apply(
-            player,
-            name ?: Generator.apply(),
-            skin ?: Generator.apply()
-        )
+        names[player.uniqueId] = name ?: Generator.apply()
+
+        PickRankMenu(player).openMenu()
     }
 
     @Command("undisguise")
