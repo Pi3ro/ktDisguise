@@ -3,6 +3,8 @@ package me.pi3ro.disguise.handler
 import me.pi3ro.disguise.DisguisePlugin
 import me.pi3ro.disguise.commands.DisguiseCommands
 import me.pi3ro.disguise.listeners.DisguiseListener
+import me.pi3ro.disguise.utils.menu.listener.MenuListener
+import me.pi3ro.disguise.utils.menu.update.MenuAutoUpdate
 import org.bukkit.event.Listener
 import revxrsal.commands.bukkit.BukkitCommandHandler
 
@@ -14,6 +16,8 @@ class Handler(private val plugin: DisguisePlugin)
     {
         loadCommands()
         loadListeners()
+
+        MenuAutoUpdate().runTaskTimer(plugin, 20L, 20L)
     }
 
     private fun loadCommands()
@@ -25,7 +29,8 @@ class Handler(private val plugin: DisguisePlugin)
     {
         val listeners: List<Listener> =
             listOf(
-                DisguiseListener(plugin)
+                DisguiseListener(plugin),
+                MenuListener(),
             )
 
         listeners.forEach { listener ->

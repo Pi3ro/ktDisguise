@@ -1,9 +1,9 @@
 package me.pi3ro.disguise.commands
 
 import me.pi3ro.disguise.DisguiseAPI
+import me.pi3ro.disguise.menus.DisguisedListMenu
 import me.pi3ro.disguise.utils.CC.translate
 import me.pi3ro.disguise.utils.generator.Generator
-import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import revxrsal.commands.annotation.Command
 import revxrsal.commands.annotation.Cooldown
@@ -78,26 +78,6 @@ class DisguiseCommands
     @CommandPermission("disguise.command.disguiselist")
     fun onList(player: Player)
     {
-        val players = Bukkit.getOnlinePlayers().filter(DisguiseAPI::isDisguised)
-
-        val info = buildList<String>
-        {
-            add("")
-            add("&b&lDisguised Players")
-            add("")
-            if (players.isEmpty())
-            {
-                add(" &7* &cNo players are currently disguised.")
-            } else {
-                players.forEach { disguisedPlayer ->
-                    val name = DisguiseAPI.getDisguisedName(disguisedPlayer)
-                    val realName = DisguiseAPI.getRealName(disguisedPlayer)
-                    add(" &7* &9$name&b is disguised. &7(as $realName)")
-                }
-            }
-            add("")
-        }
-
-        info.forEach { player.sendMessage(translate(it)) }
+        DisguisedListMenu(player).updateMenu()
     }
 }
