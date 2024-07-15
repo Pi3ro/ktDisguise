@@ -8,17 +8,14 @@ import me.pi3ro.disguise.utils.CC.translate
 import me.pi3ro.disguise.utils.generator.Generator
 import org.bukkit.entity.Player
 import revxrsal.commands.annotation.Command
-import revxrsal.commands.annotation.Cooldown
 import revxrsal.commands.annotation.Optional
 import revxrsal.commands.bukkit.annotation.CommandPermission
-import java.util.concurrent.TimeUnit
 
 class DisguiseCommands
 {
     @Command("disguise", "d")
-    @Cooldown(value = 3, unit = TimeUnit.MINUTES)
     @CommandPermission("disguise.command.disguise")
-    fun onApply(player: Player, @Optional name: String?)
+    fun onApply(player: Player, @Optional name: String? = null)
     {
         if (DisguiseAPI.isDisguised(player))
         {

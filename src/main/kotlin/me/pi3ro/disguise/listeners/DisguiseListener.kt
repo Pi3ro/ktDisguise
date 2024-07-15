@@ -7,6 +7,7 @@ import me.pi3ro.disguise.DisguiseAPI.picking
 import me.pi3ro.disguise.DisguisePlugin
 import me.pi3ro.disguise.utils.CC.translate
 import me.pi3ro.disguise.utils.generator.Generator
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
@@ -63,16 +64,20 @@ class DisguiseListener(private val plugin: DisguisePlugin) : Listener
             if (!DisguiseAPI.isValid(entry))
             {
                 player.sendMessage(translate("&cDisguise name is invalid."))
+                picking[player.uniqueId] = false
                 return
             }
 
-            DisguiseAPI.apply(
-                player,
-                names[player.uniqueId] ?: Generator.apply(),
-                entry
-            )
+            Bukkit.getScheduler().runTask(plugin)
+            {
+                picking[player.uniqueId] = false
 
-            picking[player.uniqueId] = false
+                DisguiseAPI.apply(
+                    player,
+                    names[player.uniqueId] ?: Generator.apply(),
+                    entry
+                )
+            }
         }
     }
 

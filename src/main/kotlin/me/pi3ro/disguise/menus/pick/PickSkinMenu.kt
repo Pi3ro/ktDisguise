@@ -95,28 +95,24 @@ class PickSkinMenu(private val player: Player) :
 
     override fun getPagesButtons(player: Player): MutableMap<Int, Button>
     {
-        val buttons = mutableMapOf<Int, Button>()
-
         val skins = Generator.names
 
-        for (i in skins.indices)
-        {
-            buttons[i] = SkullButtonOnlyName(
-                skins[i],
-                "&9${skins[i]}",
-                mutableListOf(),
-            ).setBody { player, i, clickType ->
-                DisguiseAPI.apply(
-                    player,
-                    names[player.uniqueId] ?: Generator.apply(),
-                    skins[i]
-                )
+        return skins.mapIndexed { index, skin ->
+            index to SkullButtonOnlyName(
+                skin,
+                "&9$skin",
+                mutableListOf()
+            ).apply {
+                setBody { player, i, clickType ->
+                    DisguiseAPI.apply(
+                        player,
+                        names[player.uniqueId] ?: Generator.apply(),
+                        skin
+                    )
+                }
             }
-        }
-
-        return buttons
+        }.toMap().toMutableMap()
     }
-
 
     override fun getTitle(player: Player): String
     {
